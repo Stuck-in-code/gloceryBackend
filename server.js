@@ -20,7 +20,7 @@ await connectCloudinary();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://glocery-porject.vercel.app",
+  "https://glocerymart.netlify.app",
 ];
 
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebHooks);
