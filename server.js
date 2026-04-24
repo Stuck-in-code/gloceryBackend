@@ -38,6 +38,9 @@ app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/order", orderRouter);
 
+app.get("/", (req,res) => {
+  res.status(200).send("your API is working successfully")
+})
 app.listen(port, () => {
   console.log(`server started on port: ${port}`);
 });
