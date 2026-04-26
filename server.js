@@ -18,13 +18,21 @@ const port = process.env.PORT || 4000;
 await connectDb();
 await connectCloudinary();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://glocerymart.netlify.app/",
-];
+app.use(cors({
+  origin: (origin, callback) => {
+    // This effectively "disables" CORS by allowing any origin that makes a request
+    callback(null, true);
+  },
+  credentials: true
+}));
+
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://glocerymart.netlify.app/",
+// ];
 
 // Middleware Configurations
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
