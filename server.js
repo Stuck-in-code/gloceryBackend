@@ -18,18 +18,16 @@ const port = process.env.PORT || 4000;
 await connectDb();
 await connectCloudinary();
 
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "https://glocerymart.netlify.app",
-// ];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://glocerymart.netlify.app/",
+];
 
 // Middleware Configurations
-// app.use(cors({ origin: allowedOrigins, credentials: true }));
-app.use(cors());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.post("/stripe", express.raw({ type: "application/json" }), stripeWebHooks);
 
 app.get("/", (req, res) => res.send("api is working"));
 app.use("/api/user", userRouter);
@@ -38,6 +36,7 @@ app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
 app.use("/api/order", orderRouter);
+app.post("/stripe", express.raw({ type: "application/json" }), stripeWebHooks);
 
 app.get("/health", (req, res) => {
   res.status(200).send("your API is working successfully");
