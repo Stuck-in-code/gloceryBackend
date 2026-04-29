@@ -18,21 +18,17 @@ const port = process.env.PORT || 4000;
 await connectDb();
 await connectCloudinary();
 
-app.use(cors({
-  origin: (origin, callback) => callback(null, true), // Dynamically allow any origin
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://glocerymart.netlify.app",
+];
 
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebHooks);
 
-
-
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.get("/", (req, res) => res.send("api is working"));
 app.use("/api/user", userRouter);
